@@ -1,3 +1,13 @@
+* {
+  font-family: 'Merriweather', serif;
+}
+
+header, .new-book-button {
+  text-align: center;
+}
+
+/* Modal */
+
 .modal {
   position: fixed;
   left: 0;
