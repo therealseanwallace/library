@@ -1,12 +1,14 @@
+/* eslint-disable no-plusplus */
 // eslint-disable-next-line prefer-const
 let bookArray = [];
+const selectBookDiv = document.querySelector('.books');
 
 // Book constructor function //
-function Book(title, author, pageCount, published) {
+function Book(title, author, pageCount, pubDate) {
   this.title = title;
   this.author = author;
   this.pageCount = pageCount;
-  this.published = published;
+  this.pubDate = pubDate;
   this.read = false;
   function toggleRead() {
     this.read = !this.read;
@@ -18,17 +20,32 @@ function newBook() {
   const newTitle = new Book(form[0].value, form[1].value, form[2].value, form[3].value);
   bookArray.push(newTitle);
   console.log(bookArray);
-}
-
-function drawBooks() {
-  
+  drawBooks();
+  toggleModal();
 }
 
 function clearBooks() {
-  const selectBookDiv = document.querySelector('.books');
   while (selectBookDiv.firstChild) {
     selectBookDiv.removeChild(selectBookDiv.lastChild);
   }
+}
+
+function drawBooks() {
+  clearBooks();
+  bookArray.forEach((item) => { // Create a div for every book
+    const newCard = document.createElement('div');
+    newCard.classList.add('book-card');
+    const thisTitle = document.createElement('h3');
+    thisTitle.textContent = item.title;
+    const thisAuthor = document.createElement('p');
+    thisAuthor.textContent = `Author: ${item.author}`;
+    const thisPages = document.createElement('p');
+    thisPages.textContent = `Pages: ${item.pageCount}`;
+    const thisPubDate = document.createElement('p');
+    thisPubDate.textContent = `Publication date: ${item.pubDate}`;
+    newCard.append(thisTitle, thisAuthor, thisPages, thisPubDate);
+    selectBookDiv.append(newCard);
+  });
 }
 
 // Modal and event listeners //
@@ -43,7 +60,6 @@ function windowOnClick(event) {
     toggleModal();
   }
 }
-
 
 (() => {
   const newTitle = document.querySelector('.new-book');
