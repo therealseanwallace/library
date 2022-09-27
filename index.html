@@ -27,8 +27,8 @@
               <form id="new-book-form">
                 <label for="book-title"></label>Title<input type="text" id="book-title" placeholder="Enter the book's title">
                 <label for="book-author"></label>Author<input type="text" id="book-author" placeholder="Enter the book's author">
-                <label for="book-pages"></label>Page count<input type="number" id="book-pages" placeholder="Enter the book's page count">
-                <label for="book-published"></label>Publication date<input type="date" id="book-published" placeholder="Enter the book's publication date">
+                <label for="book-pages"></label>Page count<input type="number" min="1" max="50000" id="book-pages" placeholder="Enter the book's page count">
+                <label for="book-published"></label>Publication year<input type="number" min="0" max="2099" id="book-published" placeholder="Enter the book's publication year">
                 <input type="button" value="submit" class="submit-button">
               </form>
           </div>

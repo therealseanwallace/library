@@ -3,7 +3,18 @@
 let bookArray = [];
 const selectBookDiv = document.querySelector('.books');
 
-// Book constructor function //
+const modal = document.querySelector('.modal');
+
+function toggleModal() {
+  modal.classList.toggle('show-modal');
+}
+
+function windowOnClick(event) {
+  if (event.target === modal) {
+    toggleModal();
+  }
+}
+
 function Book(title, author, pageCount, pubDate) {
   this.title = title;
   this.author = author;
@@ -13,15 +24,6 @@ function Book(title, author, pageCount, pubDate) {
   function toggleRead() {
     this.read = !this.read;
   }
-}
-
-function newBook() {
-  const form = document.getElementById('new-book-form');
-  const newTitle = new Book(form[0].value, form[1].value, form[2].value, form[3].value);
-  bookArray.push(newTitle);
-  console.log(bookArray);
-  drawBooks();
-  toggleModal();
 }
 
 function clearBooks() {
@@ -48,17 +50,12 @@ function drawBooks() {
   });
 }
 
-// Modal and event listeners //
-const modal = document.querySelector('.modal');
-
-function toggleModal() {
-  modal.classList.toggle('show-modal');
-}
-
-function windowOnClick(event) {
-  if (event.target === modal) {
-    toggleModal();
-  }
+function newBook() {
+  const form = document.getElementById('new-book-form');
+  const newTitle = new Book(form[0].value, form[1].value, form[2].value, form[3].value);
+  bookArray.push(newTitle);
+  console.log(bookArray);
+  drawBooks();
 }
 
 (() => {
@@ -69,4 +66,9 @@ function windowOnClick(event) {
   closeButton.addEventListener('click', toggleModal);
   window.addEventListener('click', windowOnClick);
   submit.addEventListener('click', newBook);
+  submit.addEventListener('click', toggleModal);
+})();
+
+(() => {
+  newBook('The Lord of the Rings', 'JRR Tolkien', 1178, 1954);
 })();
