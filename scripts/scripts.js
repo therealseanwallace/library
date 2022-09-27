@@ -1,32 +1,40 @@
-function createNewBook() {
-  console.log('createNewBook triggered');
+// eslint-disable-next-line prefer-const
+let bookArray = [];
+
+// Book constructor function //
+function Book(title, author, pageCount, published) {
+  this.title = title;
+  this.author = author;
+  this.pageCount = pageCount;
+  this.published = published;
+  this.read = false;
+  function toggleRead() {
+    this.read = !this.read;
+  }
 }
 
-let bookArray = [];
-bookArray.push({
-  name: 'The Lord of the Rings',
-  author: 'JRR Tolkien',
-  pages: '1178',
-  published: '27/09/1954',
-});
+function newBook() {
+  const form = document.getElementById('new-book-form');
+  const newTitle = new Book(form[0].value, form[1].value, form[2].value, form[3].value);
+  bookArray.push(newTitle);
+  console.log(bookArray);
+}
 
+function drawBooks() {
+  
+}
 
+function clearBooks() {
+  const selectBookDiv = document.querySelector('.books');
+  while (selectBookDiv.firstChild) {
+    selectBookDiv.removeChild(selectBookDiv.lastChild);
+  }
+}
 
-// Add event listeners //
+// Modal and event listeners //
 const modal = document.querySelector('.modal');
 
-(() => {
-  const newBook = document.querySelector('.new-book');
-  const closeButton = document.querySelector('.close-button');
-  newBook.addEventListener('click', toggleModal);
-  closeButton.addEventListener('click', toggleModal);
-  window.addEventListener('click', windowOnClick);
-})();
-
-// Modal logic //
-
 function toggleModal() {
-  console.log('modal toggle clicked');
   modal.classList.toggle('show-modal');
 }
 
@@ -35,3 +43,14 @@ function windowOnClick(event) {
     toggleModal();
   }
 }
+
+
+(() => {
+  const newTitle = document.querySelector('.new-book');
+  const closeButton = document.querySelector('.close-button');
+  const submit = document.querySelector('.submit-button');
+  newTitle.addEventListener('click', toggleModal);
+  closeButton.addEventListener('click', toggleModal);
+  window.addEventListener('click', windowOnClick);
+  submit.addEventListener('click', newBook);
+})();
