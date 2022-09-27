@@ -1,0 +1,43 @@
+Requirements:
+
+//A new book button to get user input to create a new book. This should bring up a form allowing users to input the details for the new book:  author, title, number of pages, whether it’s been read and anything else you might want.
+//An object constructor  which takes the user input, creates a new book object, and stores it in a book object array
+//A function which loops through the array and displays each book on the page
+//Each book should have a button which allows you to remove the book from the library
+  You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the index of the library array.
+Each book should have a button to change its read status
+  To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.
+
+
+function constructBookObject {
+  Create a new book object;
+  Store it in the bookObjects array;
+}
+
+function newBook {
+  show bookCreationForm;
+    This should show a dropdown dialog which prompts the user to enter details of the new book, including:
+      Author
+      Title
+      Number of pages
+      Read 0/1
+      Published date
+      Completion date
+      //An optional cover image
+    Take the entered dialog from the bookCreationForm and add it to the bookObjects array as a new bookObject
+    Append the book to the end of the DOM
+}
+
+function drawBookDisplay {
+  loop through the array and create a card for each book in the array. 
+  add the cards to the DOM
+    the cards should be aligned using flex
+}
+
+function deleteBook {
+  Remove the book from the array and then remove it from the DOM
+}
+
+function toggleRead {
+  toggle the book's read attribute and then update its display in the DOM
+}

@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library | Sean Wallace</title>
+  <script src="scripts/scripts.js" defer></script>
+  <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
   <div class="content">
@@ -12,9 +14,21 @@
       <h1 class="header-text">Library</h1>
     </header>
     <main>
-      <input type="button" value="New Book">
+      <input type="button" value="New Book" class="new-book">
+      <div class="modal">
+          <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <h1>Hello, I am a modal!</h1>
+              <form>
+                <label for="book-title"></label>Title<input type="text" id="book-title" placeholder="Enter the book's title">
+                <label for="book-author"></label>Author<input type="text" id="book-author" placeholder="Enter the book's author">
+                <label for="book-pages"></label>Page count<input type="number" id="book-pages" placeholder="Enter the book's page count">
+                <label for="book-published"></label>Publication date<input type="date" id="book-published" placeholder="Enter the book's publication date">
+              </form>
+          </div>
+      </div> 
       <div class="books-container">
-        
+
       </div>
     </main>
   </div>
