@@ -4,15 +4,6 @@ let bookArray = [];
 const selectBookDiv = document.querySelector('.books');
 const modal = document.querySelector('.modal');
 let bookRef = 0;
-function insertDemoBook() {
-  bookArray[0] = {
-    title: 'The Lord of the Rings',
-    author: 'JRR Tolkien',
-    pageCount: 1178,
-    pubDate: 1954,
-    read: true,
-  };
-}
 
 function clearBooks() {
   while (selectBookDiv.firstChild) {
@@ -21,10 +12,12 @@ function clearBooks() {
 }
 
 function deleteBook(e) {
+  let newArray = [];
   const bookDataId = e.target.parentElement.getAttribute('data-bookid');
   const bookToDelete = document.querySelector(`[data-bookid="${bookDataId}"]`);
-  bookArray = bookArray.splice(bookDataId, 1);
+  newArray = bookArray.splice(bookDataId, 1);
   bookToDelete.remove();
+  drawBooks();
 }
 
 function toggleRead(e) {
@@ -100,11 +93,9 @@ function drawBooks() {
     selectBookDiv.append(newCard);
     if (item.read === true) {
       const hide = document.querySelector(`.unread-container${bookRef}`);
-      console.log("unread hide is", hide);
       hide.classList.add('hide');
     } else {
       const hide = document.querySelector(`.read-container${bookRef}`);
-      console.log("read hide is", hide);
       hide.classList.add('hide');
     }
     bookRef++;
@@ -112,16 +103,17 @@ function drawBooks() {
   bookRef = 0;
 }
 
-function reset() {
-  clearBooks();
-  bookArray = [];
-  insertDemoBook();
+function insertDemoBook() {
+  const LOTR = {
+    title: 'The Lord of the Rings',
+    author: 'JRR Tolkien',
+    pageCount: 1178,
+    pubDate: 1954,
+    read: true,
+  };
+  bookArray.push(LOTR);
   drawBooks();
 }
-
-(() => {
-  reset();
-})();
 
 function toggleModal() {
   modal.classList.toggle('show-modal');
@@ -171,4 +163,5 @@ function newBook() {
   submit.addEventListener('click', newBook);
   submit.addEventListener('click', toggleModal);
   clearForm();
+  insertDemoBook();
 })();
