@@ -3,13 +3,14 @@
 let bookArray = [];
 const selectBookDiv = document.querySelector('.books');
 const modal = document.querySelector('.modal');
-
+let bookRef = 0;
 function insertDemoBook() {
   bookArray[0] = {
     title: 'The Lord of the Rings',
     author: 'JRR Tolkien',
     pageCount: 1178,
     pubDate: 1954,
+    read: true,
   };
 }
 
@@ -26,8 +27,23 @@ function deleteBook(e) {
   bookToDelete.remove();
 }
 
+function toggleRead(e) {
+  const bookDataId = e.target.parentElement.getAttribute('data-bookid');
+  const selectRead = document.querySelector(`.read${bookDataId}`);
+  const selectUnread = document.querySelector(`.unread${bookDataId}`);
+  if (bookArray[bookDataId].read === true) {
+    bookArray[bookDataId].read = false;
+    selectRead.classList.add('hide');
+    selectUnread.classList.remove('hide');
+  } else {
+    bookArray[bookDataId].read = true;
+    selectRead.classList.remove('hide');
+    selectUnread.classList.add('hide');
+  }
+  console.log(bookArray[bookDataId].read);
+}
+
 function drawBooks() {
-  let bookRef = 0;
   clearBooks();
   bookArray.forEach((item) => {
     const newCard = document.createElement('div');
@@ -45,10 +61,24 @@ function drawBooks() {
     thisPages.textContent = `Pages: ${item.pageCount}`;
     const thisPubDate = document.createElement('p');
     thisPubDate.textContent = `Publication date: ${item.pubDate}`;
-    newCard.append(thisTitle, thisAuthor, thisPages, thisPubDate);
+    const readUnread = document.createElement('p');
+    readUnread.innerHTML = `<span class="read${bookRef}">Read</span><span class="unread${bookRef}">Unread</span>`;
+    const readButton = document.createElement('input');
+    readButton.type = 'button';
+    readButton.value = 'Toggle Read';
+    readButton.addEventListener('click', toggleRead);
+    newCard.append(thisTitle, thisAuthor, thisPages, thisPubDate, readUnread, readButton);
     selectBookDiv.append(newCard);
+    if (item.read === true) {
+      const hide = document.querySelector(`.unread${bookRef}`);
+      hide.classList.add('hide');
+    } else {
+      const hide = document.querySelector(`.read${bookRef}`);
+      hide.classList.add('hide');
+    }
     bookRef++;
   });
+  bookRef = 0;
 }
 
 function reset() {
@@ -72,20 +102,23 @@ function windowOnClick(event) {
   }
 }
 
-function Book(title, author, pageCount, pubDate) {
+function Book(title, author, pageCount, pubDate, read) {
   this.title = title;
   this.author = author;
   this.pageCount = pageCount;
   this.pubDate = pubDate;
-  this.read = false;
-  function toggleRead() {
-    this.read = !this.read;
-  }
+  this.read = read;
 }
 
 function newBook() {
   const form = document.getElementById('new-book-form');
-  const newTitle = new Book(form[0].value, form[1].value, form[2].value, form[3].value);
+  const newTitle = new Book(
+    form[0].value,
+    form[1].value,
+    form[2].value,
+    form[3].value,
+    form[4].checked,
+  );
   bookArray.push(newTitle);
   console.log(bookArray);
   drawBooks();
