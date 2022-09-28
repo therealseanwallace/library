@@ -35,7 +35,7 @@ p, h1, h2, h3, h4, h5, h6 {
 /* Body and content*/
 
 body {
-  background-image: url("https://therealseanwallace.github.io/library/library.jpg");
+  background-image: url("https://therealseanwallace.github.io/library/images/library.jpg");
 }
 
 .wrapper {
@@ -50,7 +50,7 @@ body {
 }
 
 header {
-  background: rgba(25, 0, 1, 0.7);
+  background: rgba(25, 0, 1, 0.2);
 }
 
 header, .new-book-button-container {
