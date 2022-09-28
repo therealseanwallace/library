@@ -69,9 +69,9 @@ input[type="button"] {
   background-color: #191107;
   color: whitesmoke;
   font-weight: bold;
-  border-width: 1px 0 0 1px;
-  border-color: whitesmoke;
-  box-shadow: rgba(53, 50, 50, 1) 1px 2px;
+  border-width: 0 1px 0.5px 0;
+  border-color: rgb(185, 185, 185);
+  filter: drop-shadow(rgba(80, 77, 77, 0.3) -1px -0.5px);
   
 }
 

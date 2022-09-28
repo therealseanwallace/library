@@ -115,16 +115,6 @@ function insertDemoBook() {
   drawBooks();
 }
 
-function toggleModal() {
-  modal.classList.toggle('show-modal');
-}
-
-function windowOnClick(event) {
-  if (event.target === modal) {
-    toggleModal();
-  }
-}
-
 function Book(title, author, pageCount, pubDate, read) {
   this.title = title;
   this.author = author;
@@ -165,3 +155,13 @@ function newBook() {
   clearForm();
   insertDemoBook();
 })();
+
+function toggleModal() {
+  modal.classList.toggle('show-modal');
+}
+
+function windowOnClick(event) {
+  if (event.target === modal) {
+    toggleModal();
+  }
+}
