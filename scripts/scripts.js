@@ -29,8 +29,8 @@ function deleteBook(e) {
 
 function toggleRead(e) {
   const bookDataId = e.target.parentElement.getAttribute('data-bookid');
-  const selectRead = document.querySelector(`.read${bookDataId}`);
-  const selectUnread = document.querySelector(`.unread${bookDataId}`);
+  const selectRead = document.querySelector(`.read-container${bookDataId}`);
+  const selectUnread = document.querySelector(`.unread-container${bookDataId}`);
   if (bookArray[bookDataId].read === true) {
     bookArray[bookDataId].read = false;
     selectRead.classList.add('hide');
@@ -44,36 +44,66 @@ function toggleRead(e) {
 }
 
 function drawBooks() {
+  let colorCode = 0;
   clearBooks();
   bookArray.forEach((item) => {
+    colorCode++;
     const newCard = document.createElement('div');
     newCard.classList.add('book-card');
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('title-div');
+    switch (colorCode) {
+      case 1:
+        titleDiv.classList.add('chinese-black');
+        break;
+      case 2:
+        titleDiv.classList.add('raisin-black');
+        break;
+      case 3:
+        titleDiv.classList.add('black');
+        break;
+      default:
+        titleDiv.classList.add('vampire-black');
+        colorCode = 0;
+        break;
+    }
+    const thisTitle = document.createElement('h3');
+    thisTitle.textContent = item.title;
+    const thisAuthor = document.createElement('h4');
+    thisAuthor.textContent = item.author;
+    titleDiv.append(thisTitle, thisAuthor);
+    newCard.append(titleDiv);
     const closeButton = document.createElement('span');
-    closeButton.innerHTML = '❌';
+    closeButton.classList.add('close-button');
+    closeButton.innerHTML = '<img src="images/close-thick.svg">';
     closeButton.addEventListener('click', deleteBook);
     newCard.append(closeButton);
     newCard.dataset.bookid = `${bookRef}`;
-    const thisTitle = document.createElement('h3');
-    thisTitle.textContent = item.title;
-    const thisAuthor = document.createElement('p');
-    thisAuthor.textContent = `Author: ${item.author}`;
     const thisPages = document.createElement('p');
     thisPages.textContent = `Pages: ${item.pageCount}`;
     const thisPubDate = document.createElement('p');
     thisPubDate.textContent = `Publication date: ${item.pubDate}`;
-    const readUnread = document.createElement('p');
-    readUnread.innerHTML = `<span class="read${bookRef}">Read</span><span class="unread${bookRef}">Unread</span>`;
+    const readContainer = document.createElement('div');
+    const unReadContainer = document.createElement('div');
+    const readText = document.createElement('p');
+    const unReadText = document.createElement('p');
+    readContainer.classList.add(`read-container${bookRef}`, 'read-unread', 'read-container');
+    unReadContainer.classList.add(`unread-container${bookRef}`, 'read-unread', 'unread-container');
+    readContainer.append(readText);
+    unReadContainer.append(unReadText);
+    readText.innerHTML = `<span class="read${bookRef} read-display">Read</span>`;
+    unReadText.innerHTML = `<span class="unread${bookRef} unread-display">Unread</span>`;
     const readButton = document.createElement('input');
     readButton.type = 'button';
     readButton.value = 'Toggle Read';
     readButton.addEventListener('click', toggleRead);
-    newCard.append(thisTitle, thisAuthor, thisPages, thisPubDate, readUnread, readButton);
+    newCard.append(thisPages, thisPubDate, readContainer, unReadContainer, readButton);
     selectBookDiv.append(newCard);
     if (item.read === true) {
-      const hide = document.querySelector(`.unread${bookRef}`);
+      const hide = document.querySelector(`.unread-container${bookRef}`);
       hide.classList.add('hide');
     } else {
-      const hide = document.querySelector(`.read${bookRef}`);
+      const hide = document.querySelector(`read-container${bookRef}`);
       hide.classList.add('hide');
     }
     bookRef++;
@@ -110,6 +140,16 @@ function Book(title, author, pageCount, pubDate, read) {
   this.read = read;
 }
 
+function clearForm() {
+  const selectForm = document.querySelectorAll('.new-book-input');
+  console.log(selectForm);
+  selectForm.forEach((input) => {
+    console.log(input);
+    // eslint-disable-next-line no-param-reassign
+    input.value = '';
+  });
+}
+
 function newBook() {
   const form = document.getElementById('new-book-form');
   const newTitle = new Book(
@@ -121,14 +161,16 @@ function newBook() {
   );
   bookArray.push(newTitle);
   console.log(bookArray);
+  clearForm();
   drawBooks();
 }
 
 (() => {
-  document.querySelector('.new-book').addEventListener('click', toggleModal);
-  document.querySelector('.close-button').addEventListener('click', toggleModal);
+  document.querySelector('.new-book-button').addEventListener('click', toggleModal);
+  document.querySelector('.modal-close-button').addEventListener('click', toggleModal);
   const submit = document.querySelector('.submit-button');
   window.addEventListener('click', windowOnClick);
   submit.addEventListener('click', newBook);
   submit.addEventListener('click', toggleModal);
+  clearForm();
 })();
