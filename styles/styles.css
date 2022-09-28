@@ -78,6 +78,8 @@ input[type="button"] {
 input[type="button"]:hover {
   background-color: whitesmoke;
   color: #191107;
+  border: 0;
+  filter: none;
 }
 
 .new-book-button {
@@ -169,10 +171,11 @@ input[type="button"]:hover {
 
 .read-unread {
   
-  width: 80%;
-  margin: 10%;
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 80px;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 2px;
   color: whitesmoke;
   font-weight: 600;
   

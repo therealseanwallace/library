@@ -74,7 +74,7 @@ function drawBooks() {
     const thisPages = document.createElement('p');
     thisPages.textContent = `Pages: ${item.pageCount}`;
     const thisPubDate = document.createElement('p');
-    thisPubDate.textContent = `Publication date: ${item.pubDate}`;
+    thisPubDate.textContent = `Publication year: ${item.pubDate}`;
     const readContainer = document.createElement('div');
     const unReadContainer = document.createElement('div');
     const readText = document.createElement('p');
