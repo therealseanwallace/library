@@ -22,8 +22,8 @@ function clearBooks() {
 
 function deleteBook(e) {
   const bookDataId = e.target.parentElement.getAttribute('data-bookid');
-  console.log(bookDataId);
   const bookToDelete = document.querySelector(`[data-bookid="${bookDataId}"]`);
+  bookArray = bookArray.splice(bookDataId, 1);
   bookToDelete.remove();
 }
 
@@ -40,7 +40,6 @@ function toggleRead(e) {
     selectRead.classList.remove('hide');
     selectUnread.classList.add('hide');
   }
-  console.log(bookArray[bookDataId].read);
 }
 
 function drawBooks() {
@@ -101,9 +100,11 @@ function drawBooks() {
     selectBookDiv.append(newCard);
     if (item.read === true) {
       const hide = document.querySelector(`.unread-container${bookRef}`);
+      console.log("unread hide is", hide);
       hide.classList.add('hide');
     } else {
-      const hide = document.querySelector(`read-container${bookRef}`);
+      const hide = document.querySelector(`.read-container${bookRef}`);
+      console.log("read hide is", hide);
       hide.classList.add('hide');
     }
     bookRef++;
@@ -142,9 +143,7 @@ function Book(title, author, pageCount, pubDate, read) {
 
 function clearForm() {
   const selectForm = document.querySelectorAll('.new-book-input');
-  console.log(selectForm);
   selectForm.forEach((input) => {
-    console.log(input);
     // eslint-disable-next-line no-param-reassign
     input.value = '';
   });
@@ -160,7 +159,6 @@ function newBook() {
     form[4].checked,
   );
   bookArray.push(newTitle);
-  console.log(bookArray);
   clearForm();
   drawBooks();
 }
